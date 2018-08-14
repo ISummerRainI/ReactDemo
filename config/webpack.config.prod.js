@@ -94,10 +94,12 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      'variable': path.join(__dirname, '../src/static/less/variable.less'),
       'components': path.join(__dirname, '../src/components'),
       'pages': path.join(__dirname, '../src/pages'),
       'utils': path.join(__dirname, '../src/utils'),
-      'services': path.join(__dirname, '../src/services')
+      'services': path.join(__dirname, '../src/services'),
+      'static': path.join(__dirname, '../src/static')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -191,6 +193,7 @@ module.exports = {
                         sourceMap: shouldUseSourceMap,
                       },
                     },
+                    require.resolve('less-loader'),
                     {
                       loader: require.resolve('postcss-loader'),
                       options: {

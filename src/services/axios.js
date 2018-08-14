@@ -1,19 +1,23 @@
-/* name module */
+/**
+ * 本文件对所有请求进行统一封装
+ */
 import Qs from 'qs';
 import axios from 'axios';
+import { Toast } from 'antd-mobile';
 
 import apiUrl from './api';
 
 // 添加一个返回拦截器 （于transformResponse之后处理）
 // 返回的数据类型默认是json，若是其他类型（text）就会出现问题，因此用try,catch捕获异常
-axios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(response => {
   return checkStatus(response);
-}, function (error) {
+}, error => {
   // 对返回的错误进行一些处理
-  return Promise.reject(checkStatus(error));
+  return Promise.reject(checkStatus(error.response));
 });
 
 function checkStatus(response) {
+  Toast.hide();
   // 如果http状态码正常，则直接返回数据
   if (response) {
     const status = response.status;
@@ -88,6 +92,7 @@ function autoMatchBaseUrl(prefix) {
  * @param prefix 用来辨别url地址
  * @param headers
  * @param dataType
+ * @param loading 请求接口时是否显示loading动画
  * @returns {Promise.<T>}
  * @private
  */
@@ -97,9 +102,17 @@ export default function _Axios(url, {
   data = {},
   prefix = 'api',
   headers = {},
-  dataType = 'json'
+  dataType = 'json',
+  loading = false,
+  withCredentials = true
 }) {
   const baseURL = autoMatchBaseUrl(prefix);
+  const { REACT_APP_STAGE } = process.env;
+  if (REACT_APP_STAGE === 'local') {
+    url += '.json';
+    // mock数据需使用get请求
+    method = 'get';
+  }
 
   headers = Object.assign(method === 'get' ? {
     'Accept': 'application/json',
@@ -116,6 +129,7 @@ export default function _Axios(url, {
     data: data,
     timeout,
     headers,
+    withCredentials,
     responseType: dataType
   };
 
@@ -141,6 +155,6 @@ export default function _Axios(url, {
       }
     }
   }
-
+  loading && Toast.loading('', 0);
   return axios(defaultConfig);
 }

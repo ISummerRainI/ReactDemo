@@ -46,25 +46,19 @@
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
+    "vconsole": "^3.2.0",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "start": "cross-env REACT_APP_STAGE=local node scripts/start.js",
     "start:dev": "cross-env REACT_APP_STAGE=dev node scripts/start.js",
-    "start:test1": "cross-env REACT_APP_STAGE=test1 node scripts/start.js",
-    "start:test0": "cross-env REACT_APP_STAGE=test0 node scripts/start.js",
-    "start:reg": "cross-env REACT_APP_STAGE=reg node scripts/start.js",
-    "start:stage": "cross-env REACT_APP_STAGE=stage node scripts/start.js",
-    "start:pref": "cross-env REACT_APP_STAGE=pref node scripts/start.js",
+    "start:test": "cross-env REACT_APP_STAGE=test node scripts/start.js",
     "start:prod": "cross-env REACT_APP_STAGE=prod node scripts/start.js",
     "build:dev": "cross-env REACT_APP_STAGE=dev node scripts/build.js",
-    "build:test1": "cross-env REACT_APP_STAGE=test1 node scripts/build.js",
-    "build:test0": "cross-env REACT_APP_STAGE=test0 node scripts/build.js",
-    "build:reg": "cross-env REACT_APP_STAGE=reg node scripts/build.js",
-    "build:stage": "cross-env REACT_APP_STAGE=stage node scripts/build.js",
-    "build:pref": "cross-env REACT_APP_STAGE=pref node scripts/build.js",
+    "build:test": "cross-env REACT_APP_STAGE=test node scripts/build.js",
     "build:prod": "cross-env REACT_APP_STAGE=prod node scripts/build.js"
   },
   "babel": {
@@ -77,6 +71,7 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
+    "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "less": "^3.8.0",
     "less-loader": "^4.1.0"

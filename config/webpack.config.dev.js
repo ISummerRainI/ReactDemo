@@ -9,6 +9,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
@@ -88,10 +89,13 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      'variable': path.join(__dirname, '../src/static/less/variable.less'),
       'components': path.join(__dirname, '../src/components'),
       'pages': path.join(__dirname, '../src/pages'),
       'utils': path.join(__dirname, '../src/utils'),
-      'services': path.join(__dirname, '../src/services')
+      'services': path.join(__dirname, '../src/services'),
+      'static': path.join(__dirname, '../src/static')
+
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -256,6 +260,7 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new CopyWebpackPlugin([{from: path.join(__dirname, '../mock/'), to: 'mock/'}]),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
