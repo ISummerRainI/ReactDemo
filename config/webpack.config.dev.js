@@ -94,7 +94,8 @@ module.exports = {
       'pages': path.join(__dirname, '../src/pages'),
       'utils': path.join(__dirname, '../src/utils'),
       'services': path.join(__dirname, '../src/services'),
-      'static': path.join(__dirname, '../src/static')
+      'static': path.join(__dirname, '../src/static'),
+      'models': path.join(__dirname, '../src/models')
 
     },
     plugins: [

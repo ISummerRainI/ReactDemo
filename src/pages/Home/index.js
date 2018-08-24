@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import { Button, Toast } from 'antd-mobile';
+import { connect } from 'react-redux'
+
+import store from 'models/store';
+import { addTest, reduceTest } from 'models/actions/test-action';
 import axios from 'services/axios';
 import Iconfont from 'components/Iconfont';
+import TestData from './TestData';
 
 import './index.less';
 
-class IconPage extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       testIcon: ['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8'],
       emojiIcon: ['emoji1', 'emoji2', 'emoji3', 'emoji4', 'emoji5', 'emoji6', 'emoji7', 'emoji8']
     }
+  }
+
+  componentDidMount() {
+    // redux示例
+    this.props.addTest(5)
+    setTimeout(() => {
+      this.props.reduceTest(3);
+    }, 10000);
   }
 
   sendAjax = () => {
@@ -34,6 +47,7 @@ class IconPage extends Component {
       testIcon,
       emojiIcon
     } = this.state;
+    console.log(this.props);
     return (
       <div className="home">
         <h4>普通ICON</h4>
@@ -58,9 +72,16 @@ class IconPage extends Component {
         </div>
         <br />
         <Button type="primary" onClick={this.sendAjax}>点击发送请求</Button>
+        <br />
+        {this.props.testData}
       </div>
     );
   }
 }
 
-export default IconPage;
+export default connect(state => ({
+  testData: state.test.testData
+}), {
+  addTest,
+  reduceTest
+})(Home);;

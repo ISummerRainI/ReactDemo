@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
 import Router from './utils/router';
 import FastClick from 'fastclick';
 import VConsole from 'vconsole';
@@ -16,4 +15,3 @@ if (REACT_APP_STAGE === 'local' || REACT_APP_STAGE === 'dev') {
 FastClick.attach(document.body);
 
 ReactDOM.render(Router, document.getElementById('root'));
-registerServiceWorker();

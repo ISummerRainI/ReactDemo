@@ -1,14 +1,18 @@
 
 import React from 'react';
+import {Provider} from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import store from 'models/store';
 import Home from 'pages/Home';
 import errorPage from 'pages/errorPage';
 export default (
-  <HashRouter>
-    <Switch>
-      <Route exact path="/" component={Home} ></Route>
-      <Route path="/home" component={Home} ></Route>
-      <Route path="*" component={errorPage}></Route>
-    </Switch>
-  </HashRouter>
+  <Provider store={store}>
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" component={Home} ></Route>
+        <Route path="/home" component={Home} ></Route>
+        <Route path="*" component={errorPage}></Route>
+      </Switch>
+    </HashRouter>
+  </Provider>
 );
