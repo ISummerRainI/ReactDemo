@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { Button, Toast } from 'antd-mobile';
 import { connect } from 'react-redux'
 
-import store from 'models/store';
 import { addTest, reduceTest } from 'models/actions/test-action';
 import axios from 'services/axios';
 import Iconfont from 'components/Iconfont';
-import TestData from './TestData';
 
 import './index.less';
 
